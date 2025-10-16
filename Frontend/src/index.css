@@ -1,0 +1,274 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  /* Light mode colors */
+  --text-primary: #1a1a1a;
+  --text-secondary: #666666;
+  --bg-primary: #fef8f4;
+  --bg-secondary: #fff5ed;
+  --bg-tertiary: #ffffff;
+  --accent-primary: #ff6347;
+  --accent-secondary: #ff7f66;
+  --accent-hover: #e8523d;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+
+  --ease-fast: cubic-bezier(.2,.9,.3,1);
+  --ease-smooth: cubic-bezier(.22,.9,.32,1);
+}
+
+/* Warm gradient background to match Zomino-like orange/red theme */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--text-primary);
+  background: radial-gradient(circle at 20% 10%, rgba(255, 99, 71, 0.06), transparent 25%),
+              radial-gradient(circle at 80% 90%, rgba(255, 127, 102, 0.05), transparent 25%),
+              linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 320ms var(--ease-smooth), color 320ms var(--ease-smooth);
+}
+
+/* App container tweak so content stands out */
+#root > div {
+  padding-bottom: 6rem; /* allow drawer space */
+}
+
+/* Make MUI Cards look elevated and warm */
+.MuiPaper-root, .MuiCard-root {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  transition: transform 260ms var(--ease-smooth), box-shadow 260ms var(--ease-smooth),
+              background-color 320ms var(--ease-smooth), border-color 320ms var(--ease-smooth);
+}
+
+/* Links */
+a {
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 200ms var(--ease-fast), background-color 320ms var(--ease-smooth);
+}
+a:hover {
+  color: var(--accent-secondary);
+}
+
+/* Buttons default warm style fallback for non-MUI elements */
+button {
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  padding: 0.5em 1rem;
+  font-size: 0.95em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 200ms var(--ease-fast), transform 200ms var(--ease-fast), background-color 320ms var(--ease-smooth), color 320ms var(--ease-smooth);
+}
+
+button:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subtlePop {
+  from { transform: scale(.985); opacity: 0.85 }
+  to { transform: scale(1); opacity: 1 }
+}
+
+@keyframes softPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,107,53,0); }
+  50% { transform: scale(1.08); box-shadow: 0 6px 22px rgba(255,107,53,0.12); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,107,53,0); }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 420ms var(--ease-smooth) both;
+}
+
+.card-hover {
+  transition: transform 260ms var(--ease-smooth), box-shadow 260ms var(--ease-smooth);
+}
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-lg);
+}
+
+.badge-pulse {
+  animation: softPulse 760ms var(--ease-smooth);
+}
+
+/* Drawer inner animation */
+.drawer-content {
+  animation: subtlePop 260ms var(--ease-smooth) both;
+}
+
+/* Better focus outlines for accessibility */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid rgba(255, 107, 53, 0.24);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* Small button micro-interaction */
+.btn-pop {
+  transition: transform 160ms var(--ease-fast);
+}
+.btn-pop:active { transform: scale(0.97); }
+
+/* Notifier styling */
+.MuiSnackbar-root { z-index: 1400 }
+
+/* Small responsive tweaks */
+@media (max-width: 600px) {
+  .MuiContainer-root { padding-left: 12px; padding-right: 12px }
+}
+
+/* Ensure images fade in smoothly when lazy-loaded */
+img {
+  transition: opacity 260ms var(--ease-smooth);
+}
+
+/* Prevent transition on initial load */
+.no-transition * {
+  transition: none !important;
+}
+
+/*
+ * =========================================
+ * Dark Mode Overrides
+ * =========================================
+ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --text-primary: #e6eef8;
+  --text-secondary: #a8b3bf;
+  --bg-primary: #061016; /* slightly darker to add depth */
+  --bg-secondary: #07121b; /* surfaces behind cards */
+  --bg-tertiary: linear-gradient(180deg, #0f1a25 0%, #0c1722 100%); /* subtle card gradient */
+  --accent-primary: #ff8a65;
+  --accent-secondary: #ffab91;
+  --accent-hover: #ff9285;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.7);
+
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+/* Page background gradient for dark mode */
+[data-theme="dark"] body {
+  background: radial-gradient(circle at 20% 10%, rgba(255, 107, 87, 0.03), transparent 30%),
+              radial-gradient(circle at 80% 90%, rgba(255, 99, 71, 0.02), transparent 30%),
+              linear-gradient(180deg, #061017 0%, var(--bg-primary) 50%, #061017 100%);
+}
+
+/* Make MUI Paper/Card surfaces use the dark surface token */
+[data-theme="dark"] .MuiPaper-root,
+[data-theme="dark"] .MuiCard-root {
+  background: var(--bg-tertiary);
+  border-color: rgba(255,255,255,0.03);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary typography color */
+[data-theme="dark"] .MuiTypography-colorTextSecondary {
+  color: var(--text-secondary);
+}
+
+/* Focus outline more visible on dark */
+[data-theme="dark"] :focus-visible {
+  outline-color: rgba(255, 138, 101, 0.38);
+}
+
+/* Scrollbar tweaks for modern browsers */
+[data-theme="dark"] ::-webkit-scrollbar { width: 10px; height: 10px; }
+[data-theme="dark"] ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #15222f; border-radius: 6px; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: #213041; }
+
+/* -----------------------------------------
+   Page Hero and Parallax-like background
+   ----------------------------------------- */
+.page-hero {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  color: #fff;
+}
+.page-hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, rgba(255,107,53,0.22), rgba(255,87,34,0.08)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');
+  background-size: cover;
+  background-position: center 30%;
+  filter: saturate(1.05) contrast(1.02) brightness(0.88);
+  transform: translateZ(0);
+  will-change: transform, filter;
+}
+.page-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 4rem 1.25rem;
+}
+
+/* subtle overlay to ground text */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.32) 100%);
+  z-index: 1;
+}
+
+/* -----------------------------------------
+   Scroll reveal helper
+   ----------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(.996);
+  transition: opacity 520ms var(--ease-smooth), transform 520ms var(--ease-smooth);
+  will-change: transform, opacity;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Micro 3D tilt class for fallback visuals */
+.card-tilt {
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .animate-fade-in, .card-hover, .card-tilt { transition: none !important; animation: none !important; }
+}

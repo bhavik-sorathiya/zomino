@@ -1,0 +1,15 @@
+# Editor and IDE files
+.idea/
+.vscode/
+
+# Root-level accidental npm artifacts
+/package-lock.json
+
+# Backend generated files
+Backend/*.log
+Backend/dependency-list*.txt
+
+# Frontend generated files
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.vite/
